@@ -2,10 +2,12 @@ package space.connected;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -69,15 +71,25 @@ public class ConnectedSpace extends ApplicationAdapter {
 
         for (Star s : stars)
             s.render(batch);
+
+        batch.end();
+        ShapeRenderer shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setColor(Color.BLUE);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.circle((float) px, (float) py+50, (float) 50);
+        shapeRenderer.end();
+        batch.begin();
+
         for (Iterator<Laser> iterator = lasers.iterator(); iterator.hasNext();) {
             Laser l = iterator.next();
-            switch(l.render(batch, px, py, 100)) {
+            switch(l.render(batch, px, py+50, 50)) {
                 case SEND:
                     network.send(l);
                 case DELETE:
                     iterator.remove();
             }
         }
+
         for (Laser l : addLasers)
             lasers.add(l);
         addLasers.clear();
