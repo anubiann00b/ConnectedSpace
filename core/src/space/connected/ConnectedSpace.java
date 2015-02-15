@@ -11,8 +11,8 @@ public class ConnectedSpace extends ApplicationAdapter {
 	SpriteBatch batch;
     Animation player;
     float cumulativeTime = 0;
-    int px = 120;
-    int py = 120;
+    float px = 240;
+    float py = 240;
 
 	@Override
 	public void create () {
@@ -28,11 +28,17 @@ public class ConnectedSpace extends ApplicationAdapter {
             delta = (float) Game.FPS/Gdx.graphics.getFramesPerSecond();
         cumulativeTime += delta*2;
 
+        float dx = (float) (10.0*Math.cos(Math.toRadians(Gdx.input.getRoll()-90)));
+        float dy = (float) (10.0*Math.sin(Math.toRadians(Gdx.input.getPitch())));
+
+        px += dx;
+        py += dy;
+
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 
-        batch.draw(player.getKeyFrame(cumulativeTime), px, py, 25 * 4, 30 * 4);
+        batch.draw(player.getKeyFrame(cumulativeTime), this.px, this.py, 25 * 4, 30 * 4);
 
         batch.end();
 	}
