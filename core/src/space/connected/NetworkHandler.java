@@ -46,7 +46,7 @@ public class NetworkHandler implements Runnable {
             if (packet.getAddress().equals(connectedSpace.localAddress))
                 continue;
             double lx = buffer.getDouble();
-            connectedSpace.addLasers.add(new Laser(lx*Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false));
+            connectedSpace.addLasers.add(new Laser((1-lx)*Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false));
             Gdx.app.log("RECV", String.valueOf(lx));
         }
     }
