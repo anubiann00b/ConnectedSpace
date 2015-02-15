@@ -15,7 +15,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ConnectedSpace extends ApplicationAdapter {
 
-    public static Texture LASER_TEXTURE;
+    public static Texture MY_LASER_TEXTURE;
 
     SpriteBatch batch;
     Animation player;
@@ -37,7 +37,14 @@ public class ConnectedSpace extends ApplicationAdapter {
 
     @Override
     public void create() {
-        LASER_TEXTURE = new Texture("laser_blue.png");
+        double rand = Math.random();
+        if (rand < 1.0/3.0)
+            MY_LASER_TEXTURE = new Texture("laser_blue.png");
+        else if (rand < 2.0/3.0)
+            MY_LASER_TEXTURE = new Texture("laser_red.png");
+        else
+            MY_LASER_TEXTURE = new Texture("laser_green.png");
+
         network = new NetworkHandler(this);
         new Thread(network).start();
         batch = new SpriteBatch();
@@ -80,5 +87,19 @@ public class ConnectedSpace extends ApplicationAdapter {
                 player.getKeyFrame(0).getRegionHeight()*4);
 
         batch.end();
+    }
+
+    boolean intersects(double cx, double cy, double r, double ax, double ay, double bx, double by) {
+        // proj a = (a*bh)bh
+        // proj AC onto AB to get D, compare D to R
+        double magB = Math.sqrt(bx*bx+by*by);
+        double bUnitX = bx / magB;
+        double bUnitY = by / magB;
+        double aDotBUnit = ax*bUnitX + ay*bUnitY;
+        double dx = aDotBUnit*bUnitX;
+        double dy = aDotBUnit*bUnitY;
+
+        double dc = Math.sqrt((dx-cx)*(dx-cx) + (dy-cy)*(dy-cy));
+        return dc <= r;
     }
 }

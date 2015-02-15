@@ -18,7 +18,7 @@ public class Laser {
     public Laser(double x, double y, boolean forward) {
         this.x = x;
         this.y = y;
-        laser = new Sprite(ConnectedSpace.LASER_TEXTURE);
+        laser = new Sprite(ConnectedSpace.MY_LASER_TEXTURE);
         laser.setScale(0.5f, 1f);
         laser.flip(false, !forward);
         laser.setOriginCenter();
