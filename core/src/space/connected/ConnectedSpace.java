@@ -71,7 +71,7 @@ public class ConnectedSpace extends ApplicationAdapter {
             s.render(batch);
         for (Iterator<Laser> iterator = lasers.iterator(); iterator.hasNext();) {
             Laser l = iterator.next();
-            switch(l.render(batch)) {
+            switch(l.render(batch, px, py, 100)) {
                 case SEND:
                     network.send(l);
                 case DELETE:
@@ -87,19 +87,5 @@ public class ConnectedSpace extends ApplicationAdapter {
                 player.getKeyFrame(0).getRegionHeight()*4);
 
         batch.end();
-    }
-
-    boolean intersects(double cx, double cy, double r, double ax, double ay, double bx, double by) {
-        // proj a = (a*bh)bh
-        // proj AC onto AB to get D, compare D to R
-        double magB = Math.sqrt(bx*bx+by*by);
-        double bUnitX = bx / magB;
-        double bUnitY = by / magB;
-        double aDotBUnit = ax*bUnitX + ay*bUnitY;
-        double dx = aDotBUnit*bUnitX;
-        double dy = aDotBUnit*bUnitY;
-
-        double dc = Math.sqrt((dx-cx)*(dx-cx) + (dy-cy)*(dy-cy));
-        return dc <= r;
     }
 }
