@@ -28,11 +28,8 @@ public class ConnectedSpace extends ApplicationAdapter {
             delta = (float) Game.FPS/Gdx.graphics.getFramesPerSecond();
         cumulativeTime += delta*2;
 
-        float dx = (float) (10.0*Math.cos(Math.toRadians(Gdx.input.getRoll()-90)));
-        float dy = (float) (10.0*Math.sin(Math.toRadians(Gdx.input.getPitch())));
-
-        px += dx;
-        py += dy;
+        px += (float) (10.0*Math.cos(Math.toRadians(Gdx.input.getRoll()-90)));
+        py += (float) (10.0*Math.sin(Math.toRadians(Gdx.input.getPitch())));
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
