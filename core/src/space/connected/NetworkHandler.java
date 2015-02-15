@@ -46,14 +46,14 @@ public class NetworkHandler implements Runnable {
             if (packet.getAddress().equals(connectedSpace.localAddress))
                 continue;
             double lx = buffer.getDouble();
-            connectedSpace.addLasers.add(new Laser(lx, Gdx.graphics.getHeight(), false));
+            connectedSpace.addLasers.add(new Laser(lx*Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false));
             Gdx.app.log("RECV", String.valueOf(lx));
         }
     }
 
     public void send(Laser laser) {
         ByteBuffer buffer = ByteBuffer.allocate(8);
-        buffer.putDouble(laser.x);
+        buffer.putDouble(laser.x/Gdx.graphics.getWidth());
         try {
             sendSocket.send(new DatagramPacket(buffer.array(), 8, connectedSpace.broadcastAddress, 4242));
         } catch (IOException e) {

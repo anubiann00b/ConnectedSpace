@@ -3,6 +3,7 @@ package space.connected;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -13,6 +14,8 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ConnectedSpace extends ApplicationAdapter {
+
+    public static Texture LASER_TEXTURE;
 
     SpriteBatch batch;
     Animation player;
@@ -34,6 +37,7 @@ public class ConnectedSpace extends ApplicationAdapter {
 
     @Override
     public void create() {
+        LASER_TEXTURE = new Texture("laser_blue.png");
         network = new NetworkHandler(this);
         new Thread(network).start();
         batch = new SpriteBatch();

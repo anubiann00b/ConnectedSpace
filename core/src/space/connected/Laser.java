@@ -1,14 +1,13 @@
 package space.connected;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Laser {
 
     enum Outcome {
-        DELETE, SEND, KEEP;
+        DELETE, SEND, KEEP
     }
 
     Sprite laser;
@@ -19,18 +18,18 @@ public class Laser {
     public Laser(double x, double y, boolean forward) {
         this.x = x;
         this.y = y;
-        laser = new Sprite(new Texture("laser_blue.png"));
+        laser = new Sprite(ConnectedSpace.LASER_TEXTURE);
         laser.setScale(0.5f, 1f);
+        laser.flip(false, !forward);
         laser.setOriginCenter();
         velocity = 15 * (forward ? 1 : -1);
     }
 
     public Outcome render(SpriteBatch batch) {
-        if (y > Gdx.graphics.getHeight()) {
+        if (y > Gdx.graphics.getHeight())
             return Outcome.SEND;
-        } else if (y < 0) {
+        else if (y < 0)
             return Outcome.DELETE;
-        }
         y += velocity;
         laser.setPosition((float)x-laser.getWidth()/2, (float)y);
         laser.draw(batch);

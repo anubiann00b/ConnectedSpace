@@ -13,10 +13,10 @@ import java.net.UnknownHostException;
 import space.connected.ConnectedSpace;
 
 public class AndroidLauncher extends AndroidApplication {
-    @Override
-    protected void onCreate (Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+	@Override
+	protected void onCreate (Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
         InetAddress address = null;
         InetAddress broadcast = null;
         try {
