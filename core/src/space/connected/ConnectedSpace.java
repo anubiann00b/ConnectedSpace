@@ -20,6 +20,7 @@ public class ConnectedSpace extends ApplicationAdapter {
     public static Texture MY_LASER_TEXTURE;
 
     SpriteBatch batch;
+    ShapeRenderer shapeRenderer;
     Animation player;
     float cumulativeTime = 0;
     float px = 240;
@@ -31,6 +32,8 @@ public class ConnectedSpace extends ApplicationAdapter {
     NetworkHandler network;
     InetAddress localAddress;
     InetAddress broadcastAddress;
+
+    int health = 10;
 
     public ConnectedSpace(InetAddress localAddress, InetAddress broadcastAddress) {
         this.localAddress = localAddress;
@@ -50,6 +53,7 @@ public class ConnectedSpace extends ApplicationAdapter {
         network = new NetworkHandler(this);
         new Thread(network).start();
         batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
         player = SpriteSheet.SHIP_VARIANT_1.getAnim(16);
         player.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
@@ -72,14 +76,6 @@ public class ConnectedSpace extends ApplicationAdapter {
         for (Star s : stars)
             s.render(batch);
 
-        batch.end();
-        ShapeRenderer shapeRenderer = new ShapeRenderer();
-        shapeRenderer.setColor(Color.BLUE);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.circle((float) px, (float) py+50, (float) 50);
-        shapeRenderer.end();
-        batch.begin();
-
         for (Iterator<Laser> iterator = lasers.iterator(); iterator.hasNext();) {
             Laser l = iterator.next();
             switch(l.render(batch, px, py+50, 50)) {
@@ -87,6 +83,10 @@ public class ConnectedSpace extends ApplicationAdapter {
                     network.send(l);
                 case DELETE:
                     iterator.remove();
+                    break;
+                case HIT:
+                    iterator.remove();
+                    health--;
             }
         }
 
@@ -99,5 +99,20 @@ public class ConnectedSpace extends ApplicationAdapter {
                 player.getKeyFrame(0).getRegionHeight()*4);
 
         batch.end();
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setAutoShapeType(true);
+        float sx = Gdx.graphics.getWidth()*0.05f;
+        float sy = Gdx.graphics.getHeight()*0.05f;
+        float width = Gdx.graphics.getWidth()*0.9f;
+        float height = Gdx.graphics.getHeight()*0.05f;
+        shapeRenderer.setColor(Color.BLUE);
+        shapeRenderer.rect(sx, sy, width, height);
+        shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.rect(sx, sy, width*health/10f, height);
+        shapeRenderer.end();
+
+        if (health <= 0)
+            health = 0; // die
     }
 }
