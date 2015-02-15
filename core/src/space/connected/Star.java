@@ -14,6 +14,9 @@ public class Star {
 
     public Star() {
         sprite = new Sprite(new Texture("star.png"));
+        y = 2*Math.random()*Gdx.graphics.getHeight();
+        x = Math.random()*Gdx.graphics.getWidth();
+        z = -(int)(4+Math.random()*5);
     }
 
     public void render(SpriteBatch batch) {
@@ -21,7 +24,7 @@ public class Star {
         if (y < 0) {
             x = Math.random()*Gdx.graphics.getWidth();
             z = -(int)(4+Math.random()*5);
-            y = 2*Math.random()*Gdx.graphics.getHeight();
+            y = (Math.random()+1)*Gdx.graphics.getHeight();
         }
         sprite.setPosition((float)x, (float)y);
         sprite.draw(batch);

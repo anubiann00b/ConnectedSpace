@@ -24,7 +24,7 @@ public class ConnectedSpace extends ApplicationAdapter {
         player = SpriteSheet.SHIP_VARIANT_1.getAnim(16);
         player.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
-        for (int i=0;i<20;i++)
+        for (int i=0;i<60;i++)
             stars.add(new Star());
     }
 
