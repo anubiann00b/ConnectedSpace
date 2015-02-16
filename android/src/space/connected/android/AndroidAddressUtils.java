@@ -12,13 +12,11 @@ import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Based off of http://stackoverflow.com/a/13007325/2197700
+ */
 public class AndroidAddressUtils {
 
-    /**
-     * Get IP address from first non-localhost interface
-     * @param useIPv4 true=return ipv4, false=return ipv6
-     * @return  address or empty string
-     */
     public static String getIPAddress(boolean useIPv4) {
         try {
             List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
