@@ -63,7 +63,7 @@ public class ConnectedSpace extends ApplicationAdapter {
         new Thread(network).start();
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
-        player = SpriteSheet.SHIP_VARIANT_1.getAnim(16);
+        player = SpriteSheet.SHIP.getAnim(16);
         player.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
         stage = new Stage();
