@@ -14,6 +14,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener getApplicationListener () {
-                return new ConnectedSpace();
+                return new ConnectedSpace(null, null);
         }
 }
