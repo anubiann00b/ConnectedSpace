@@ -34,7 +34,6 @@ public class NetworkHandler implements Runnable {
             e.printStackTrace();
         }
 
-
         while (true) {
             ByteBuffer buffer = ByteBuffer.allocate(8);
             DatagramPacket packet = new DatagramPacket(buffer.array(), 8);

@@ -22,11 +22,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ConnectedSpace extends ApplicationAdapter {
 
+
     public enum State {
         MENU, GAME, DEATH
     }
 
-    public static Texture MY_LASER_TEXTURE;
+    public static Texture INWARD_LASER;
+    public static Texture OUTWARD_LASER;
 
     SpriteBatch batch;
     ShapeRenderer shapeRenderer;
@@ -54,13 +56,8 @@ public class ConnectedSpace extends ApplicationAdapter {
 
     @Override
     public void create() {
-        double rand = Math.random();
-        if (rand < 1.0/3.0)
-            MY_LASER_TEXTURE = new Texture("laser_blue.png");
-        else if (rand < 2.0/3.0)
-            MY_LASER_TEXTURE = new Texture("laser_red.png");
-        else
-            MY_LASER_TEXTURE = new Texture("laser_green.png");
+        INWARD_LASER = new Texture("laser_red.png");
+        OUTWARD_LASER = new Texture("laser_blue.png");
 
         network = new NetworkHandler(this);
         new Thread(network).start();
@@ -72,7 +69,7 @@ public class ConnectedSpace extends ApplicationAdapter {
         stage = new Stage();
         Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
         TextButton button = new TextButton("Start Game", skin);
-        button.setWidth(Gdx.graphics.getWidth()*0.5f);
+        button.setWidth(Gdx.graphics.getWidth() * 0.5f);
         button.setHeight(Gdx.graphics.getHeight()*0.5f);
         button.addListener(new ChangeListener() {
             @Override
@@ -82,7 +79,7 @@ public class ConnectedSpace extends ApplicationAdapter {
             }
         });
         stage.addActor(button);
-        Gdx.input.setInputProcessor(stage);
+        //Gdx.input.setInputProcessor(stage);
 
         for (int i=0;i<60;i++)
             stars.add(new Star());

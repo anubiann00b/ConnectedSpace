@@ -18,7 +18,10 @@ public class Laser {
     public Laser(double x, double y, boolean forward) {
         this.x = x;
         this.y = y;
-        laser = new Sprite(ConnectedSpace.MY_LASER_TEXTURE);
+        if (forward)
+            laser = new Sprite(ConnectedSpace.OUTWARD_LASER);
+        else
+            laser = new Sprite(ConnectedSpace.INWARD_LASER);
         laser.setScale(0.5f, 1f);
         laser.flip(false, !forward);
         laser.setOriginCenter();
@@ -31,7 +34,7 @@ public class Laser {
         else if (y < 0)
             return Outcome.DELETE;
         y += velocity;
-        laser.setPosition((float)x-laser.getWidth()/2, (float)y);
+        laser.setPosition((float) x - laser.getWidth() / 2, (float) y);
         laser.draw(batch);
         if (velocity < 0) {
             if (MathHelper.intersects(px, py, rad, x, y, x, y + velocity*4))
