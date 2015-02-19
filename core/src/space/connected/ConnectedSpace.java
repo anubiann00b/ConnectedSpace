@@ -69,17 +69,17 @@ public class ConnectedSpace extends ApplicationAdapter {
         stage = new Stage();
         Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
         TextButton button = new TextButton("Start Game", skin);
-        button.setWidth(Gdx.graphics.getWidth() * 0.5f);
+        button.setWidth(Gdx.graphics.getWidth()*0.5f);
         button.setHeight(Gdx.graphics.getHeight()*0.5f);
+        button.setPosition(Gdx.graphics.getWidth()*0.25f, Gdx.graphics.getHeight()*0.25f);
         button.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.log("BUTTON", event.getListenerActor().toString());
                 state = State.GAME;
             }
         });
         stage.addActor(button);
-        //Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(stage);
 
         for (int i=0;i<60;i++)
             stars.add(new Star());
