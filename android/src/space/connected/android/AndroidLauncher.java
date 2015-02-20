@@ -17,13 +17,8 @@ public class AndroidLauncher extends AndroidApplication {
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-        InetAddress address = null;
         InetAddress broadcast = null;
-        try {
-            address = InetAddress.getByName(AndroidAddressUtils.getIPAddress(true));
-        } catch (UnknownHostException e) {
-            Gdx.app.log("FAIL", "Failed to init device address", e);
-        }
+        InetAddress address = AndroidAddressUtils.getIPAddress();
         try {
             broadcast = AndroidAddressUtils.getBroadcastAddress(this);
         } catch (UnknownHostException e) {

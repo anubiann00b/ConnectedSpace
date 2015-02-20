@@ -8,11 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -24,7 +19,7 @@ public class ConnectedSpace extends ApplicationAdapter {
 
 
     public enum State {
-        MENU, GAME, DEATH
+        GAME, DEATH
     }
 
     public static Texture INWARD_LASER;
@@ -47,8 +42,6 @@ public class ConnectedSpace extends ApplicationAdapter {
     int health = 10;
     State state = State.GAME;
 
-    Stage stage;
-
     public ConnectedSpace(InetAddress localAddress, InetAddress broadcastAddress) {
         this.localAddress = localAddress;
         this.broadcastAddress = broadcastAddress;
@@ -66,32 +59,13 @@ public class ConnectedSpace extends ApplicationAdapter {
         player = SpriteSheet.SHIP.getAnim(16);
         player.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
-        stage = new Stage();
-        Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
-        TextButton button = new TextButton("Start Game", skin);
-        button.setWidth(Gdx.graphics.getWidth()*0.5f);
-        button.setHeight(Gdx.graphics.getHeight()*0.5f);
-        button.setPosition(Gdx.graphics.getWidth()*0.25f, Gdx.graphics.getHeight()*0.25f);
-        button.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                state = State.GAME;
-            }
-        });
-        stage.addActor(button);
-        Gdx.input.setInputProcessor(stage);
-
         for (int i=0;i<60;i++)
             stars.add(new Star());
     }
 
     @Override
     public void render() {
-        if (state == State.MENU) {
-            Gdx.gl.glClearColor(0, 0, 0, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            stage.draw();
-        } else if (state == State.GAME) {
+        if (state == State.GAME) {
             px += (float) (10.0 * Math.cos(Math.toRadians(Gdx.input.getRoll() - 90)));
             py += (float) (10.0 * Math.sin(Math.toRadians(Gdx.input.getPitch())));
 
@@ -146,7 +120,7 @@ public class ConnectedSpace extends ApplicationAdapter {
                 state = State.DEATH;
             }
         } else if (state == State.DEATH) {
-            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClearColor(1, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
 

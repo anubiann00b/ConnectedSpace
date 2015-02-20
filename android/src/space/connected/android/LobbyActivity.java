@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 public class LobbyActivity extends ActionBarActivity {
 
@@ -11,6 +12,12 @@ public class LobbyActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
+
+        ClientListAdapter adapter = new ClientListAdapter(this);
+        ListView listView = (ListView) this.findViewById(R.id.client_list);
+        listView.setAdapter(adapter);
+
+        LobbyManager manager = new LobbyManager(adapter);
     }
 
     @Override
