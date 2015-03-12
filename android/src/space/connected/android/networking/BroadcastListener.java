@@ -1,4 +1,4 @@
-package space.connected.android;
+package space.connected.android.networking;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

@@ -1,4 +1,4 @@
-package space.connected.android;
+package space.connected.android.util;
 
 public class Client {
 

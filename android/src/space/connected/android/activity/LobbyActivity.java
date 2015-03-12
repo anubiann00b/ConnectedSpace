@@ -1,10 +1,13 @@
-package space.connected.android;
+package space.connected.android.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+
+import space.connected.android.R;
+import space.connected.android.networking.LobbyManager;
 
 public class LobbyActivity extends ActionBarActivity {
 

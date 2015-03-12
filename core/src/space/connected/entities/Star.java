@@ -1,4 +1,4 @@
-package space.connected;
+package space.connected.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

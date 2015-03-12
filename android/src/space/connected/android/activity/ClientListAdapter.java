@@ -1,4 +1,4 @@
-package space.connected.android;
+package space.connected.android.activity;
 
 import android.content.Context;
 import android.os.Handler;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import space.connected.android.R;
+import space.connected.android.util.Client;
 
 public class ClientListAdapter extends BaseAdapter implements View.OnClickListener {
 

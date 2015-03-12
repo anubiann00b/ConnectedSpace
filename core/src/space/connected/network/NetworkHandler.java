@@ -1,4 +1,4 @@
-package space.connected;
+package space.connected.network;
 
 import com.badlogic.gdx.Gdx;
 
@@ -7,6 +7,9 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
+
+import space.connected.ConnectedSpace;
+import space.connected.entities.Laser;
 
 public class NetworkHandler implements Runnable {
 

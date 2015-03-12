@@ -15,6 +15,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import space.connected.entities.Laser;
+import space.connected.entities.Star;
+import space.connected.network.NetworkHandler;
+import space.connected.util.SpriteSheet;
+
 public class ConnectedSpace extends ApplicationAdapter {
 
 
@@ -33,11 +38,11 @@ public class ConnectedSpace extends ApplicationAdapter {
     float py = 240;
     List<Star> stars = new ArrayList<Star>();
     List<Laser> lasers = new ArrayList<Laser>();
-    List<Laser> addLasers = new CopyOnWriteArrayList<Laser>();
+    public List<Laser> addLasers = new CopyOnWriteArrayList<Laser>();
 
     NetworkHandler network;
-    InetAddress localAddress;
-    InetAddress broadcastAddress;
+    public InetAddress localAddress;
+    public InetAddress broadcastAddress;
 
     int health = 10;
     State state = State.GAME;

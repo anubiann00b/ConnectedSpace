@@ -1,7 +1,10 @@
-package space.connected.android;
+package space.connected.android.networking;
 
 import java.net.DatagramPacket;
 import java.net.InetAddress;
+
+import space.connected.android.activity.ClientListAdapter;
+import space.connected.android.util.AndroidAddressUtils;
 
 public class LobbyManager {
 

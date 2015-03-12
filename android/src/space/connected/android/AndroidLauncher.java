@@ -11,6 +11,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import space.connected.ConnectedSpace;
+import space.connected.android.util.AndroidAddressUtils;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
