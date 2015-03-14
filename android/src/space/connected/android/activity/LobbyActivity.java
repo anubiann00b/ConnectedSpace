@@ -20,7 +20,7 @@ public class LobbyActivity extends ActionBarActivity {
         ListView listView = (ListView) this.findViewById(R.id.client_list);
         listView.setAdapter(adapter);
 
-        LobbyManager manager = new LobbyManager(adapter);
+        new LobbyManager(this, adapter);
     }
 
     @Override

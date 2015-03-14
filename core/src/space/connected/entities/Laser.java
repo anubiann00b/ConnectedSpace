@@ -9,7 +9,7 @@ import space.connected.util.MathHelper;
 
 public class Laser {
 
-    enum Outcome {
+    public enum Outcome {
         DELETE, SEND, KEEP, HIT
     }
 
