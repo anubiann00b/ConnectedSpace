@@ -3,9 +3,7 @@ package space.connected.network;
 import com.badlogic.gdx.Gdx;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.SocketException;
+import java.net.Socket;
 import java.nio.ByteBuffer;
 
 import space.connected.ConnectedSpace;
@@ -13,51 +11,47 @@ import space.connected.entities.Laser;
 
 public class NetworkHandler implements Runnable {
 
-    DatagramSocket recvSocket;
-    DatagramSocket sendSocket;
-    ConnectedSpace connectedSpace;
+    ConnectedSpace game;
+    Socket socket;
 
-    public NetworkHandler(ConnectedSpace connectedSpace) {
-        this.connectedSpace = connectedSpace;
-        try {
-            sendSocket = new DatagramSocket();
-            sendSocket.setSoTimeout(1000);
-            sendSocket.setBroadcast(true);
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
+    public NetworkHandler(Socket socket) {
+        this.socket = socket;
+    }
+
+    public void setGame(ConnectedSpace game) {
+        this.game = game;
     }
 
     @Override
     public void run() {
-        try {
-            recvSocket = new DatagramSocket(4242);
-            recvSocket.setBroadcast(true);
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-
+        byte[] arr = new byte[8];
+        ByteBuffer buffer = ByteBuffer.wrap(arr);
         while (true) {
-            ByteBuffer buffer = ByteBuffer.allocate(8);
-            DatagramPacket packet = new DatagramPacket(buffer.array(), 8);
             try {
-                recvSocket.receive(packet);
+                Thread.sleep(16);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            buffer.rewind();
+            int numRead = -1;
+            try {
+                numRead = socket.getInputStream().read(arr);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (packet.getAddress().equals(connectedSpace.localAddress))
+            if (numRead != 8)
                 continue;
             double lx = buffer.getDouble();
-            connectedSpace.addLasers.add(new Laser((1-lx)*Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false));
-            Gdx.app.log("RECV", String.valueOf(lx));
+            if (game != null)
+                game.addLasers.add(new Laser((1-lx)*Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false));
         }
     }
 
     public void send(Laser laser) {
         ByteBuffer buffer = ByteBuffer.allocate(8);
-        buffer.putDouble(laser.x/Gdx.graphics.getWidth());
+        buffer.putDouble(laser.x / Gdx.graphics.getWidth());
         try {
-            sendSocket.send(new DatagramPacket(buffer.array(), 8, connectedSpace.broadcastAddress, 4242));
+            socket.getOutputStream().write(buffer.array());
         } catch (IOException e) {
             e.printStackTrace();
         }

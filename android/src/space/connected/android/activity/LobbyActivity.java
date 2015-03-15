@@ -4,10 +4,17 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import space.connected.android.R;
+import space.connected.android.networking.ConnectionThread;
 import space.connected.android.networking.LobbyManager;
+import space.connected.android.util.Client;
 
 public class LobbyActivity extends ActionBarActivity {
 
@@ -16,9 +23,21 @@ public class LobbyActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
 
-        ClientListAdapter adapter = new ClientListAdapter(this);
         ListView listView = (ListView) this.findViewById(R.id.client_list);
+        final ClientListAdapter adapter = new ClientListAdapter(this, listView);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Client client = (Client) adapter.getItem(position);
+                try {
+                    new Thread(new ConnectionThread(LobbyActivity.this, InetAddress.getByName(client.ip))).start();
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         new LobbyManager(this, adapter);
     }

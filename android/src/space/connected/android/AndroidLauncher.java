@@ -12,8 +12,12 @@ import java.net.UnknownHostException;
 
 import space.connected.ConnectedSpace;
 import space.connected.android.util.AndroidAddressUtils;
+import space.connected.network.NetworkHandler;
 
 public class AndroidLauncher extends AndroidApplication {
+
+    public static NetworkHandler network;
+
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,6 +30,6 @@ public class AndroidLauncher extends AndroidApplication {
             Gdx.app.log("FAIL", "Failed to init address", e);
         }
         Log.d("BROADCAST", broadcast.toString());
-        initialize(new ConnectedSpace(address, broadcast), config);
+        initialize(new ConnectedSpace(network, broadcast), config);
     }
 }

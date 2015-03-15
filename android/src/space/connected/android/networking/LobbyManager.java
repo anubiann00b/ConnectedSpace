@@ -1,6 +1,6 @@
 package space.connected.android.networking;
 
-import android.content.Context;
+import android.app.Activity;
 import android.util.Log;
 
 import java.net.DatagramPacket;
@@ -23,17 +23,18 @@ public class LobbyManager {
     NetworkStatus currentStatus = NetworkStatus.LOBBY;
     InetAddress broadcastAddress;
 
-    public LobbyManager(Context context, ClientListAdapter adapter) {
+    public LobbyManager(Activity lobbyActivity, ClientListAdapter adapter) {
         Log.d("BROADCAST", "Creating Lobby Manager");
         this.adapter = adapter;
         localAddress = AndroidAddressUtils.getIPAddress();
         try {
-            broadcastAddress = AndroidAddressUtils.getBroadcastAddress(context);
+            broadcastAddress = AndroidAddressUtils.getBroadcastAddress(lobbyActivity);
         } catch (UnknownHostException e) {
             Log.e("Broadcast", "Failed to init address", e);
         }
         new Thread(new BroadcastListenerThread(this)).start();
         new Timer().schedule(new HeartbeatThread(this), 0, 10000);
+        new Thread(new ServerSocketThread(lobbyActivity)).start();
     }
 
     public void handle(DatagramPacket packet) {

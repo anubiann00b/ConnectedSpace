@@ -41,14 +41,13 @@ public class ConnectedSpace extends ApplicationAdapter {
     public List<Laser> addLasers = new CopyOnWriteArrayList<Laser>();
 
     NetworkHandler network;
-    public InetAddress localAddress;
     public InetAddress broadcastAddress;
 
     int health = 10;
     State state = State.GAME;
 
-    public ConnectedSpace(InetAddress localAddress, InetAddress broadcastAddress) {
-        this.localAddress = localAddress;
+    public ConnectedSpace(NetworkHandler network, InetAddress broadcastAddress) {
+        this.network = network;
         this.broadcastAddress = broadcastAddress;
     }
 
@@ -57,7 +56,7 @@ public class ConnectedSpace extends ApplicationAdapter {
         INWARD_LASER = new Texture("laser_red.png");
         OUTWARD_LASER = new Texture("laser_blue.png");
 
-        network = new NetworkHandler(this);
+        network.setGame(this);
         new Thread(network).start();
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();

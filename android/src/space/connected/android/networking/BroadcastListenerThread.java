@@ -22,7 +22,6 @@ public class BroadcastListenerThread implements Runnable {
         Log.d("BROADCAST", "Running Connection Thread");
         try {
             recvSocket = new DatagramSocket(4242);
-            //sendSocket.setBroadcast(true);
         } catch (SocketException e) {
             e.printStackTrace();
         }

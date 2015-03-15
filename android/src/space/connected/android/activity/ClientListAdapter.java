@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.LinkedList;
@@ -14,15 +15,17 @@ import java.util.List;
 import space.connected.android.R;
 import space.connected.android.util.Client;
 
-public class ClientListAdapter extends BaseAdapter implements View.OnClickListener {
+public class ClientListAdapter extends BaseAdapter {
 
     List<Client> clients = new LinkedList<Client>();
     Handler handler = new Handler();
 
     Context context;
+    private ListView listView;
 
-    public ClientListAdapter(Context context) {
+    public ClientListAdapter(Context context, ListView listView) {
         this.context = context;
+        this.listView = listView;
     }
 
     public void add(final Client client) {
@@ -62,10 +65,5 @@ public class ClientListAdapter extends BaseAdapter implements View.OnClickListen
         clientIp.setText(clients.get(position).ip);
 
         return view;
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 }
