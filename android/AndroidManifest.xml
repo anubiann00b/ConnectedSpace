@@ -16,7 +16,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name=".activity.LobbyActivity"
+            android:name="me.shreyasr.connected.android.activity.LobbyActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppTheme" >
             <intent-filter>
@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AndroidLauncher"
+            android:name="me.shreyasr.connected.android.AndroidLauncher"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:theme="@style/GdxTheme"
             android:label="@string/app_name"
