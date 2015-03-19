@@ -8,10 +8,10 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.TimerTask;
 
-public class HeartbeatThread extends TimerTask {
+class HeartbeatThread extends TimerTask {
 
-    LobbyManager manager;
-    DatagramSocket sendSocket;
+    private final LobbyManager manager;
+    private DatagramSocket sendSocket;
 
     public HeartbeatThread(LobbyManager manager) {
         this.manager = manager;

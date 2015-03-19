@@ -16,10 +16,10 @@ import me.shreyasr.connected.network.NetworkHandler;
 
 public class ConnectionThread implements Runnable {
 
-    Socket socket;
-    InetAddress remote;
-    Activity lobbyActivity;
-    AlertDialog dialog;
+    private Socket socket;
+    private final InetAddress remote;
+    private final Activity lobbyActivity;
+    private AlertDialog dialog;
 
     public ConnectionThread(Activity lobbyActivity, InetAddress remote) {
         this.lobbyActivity = lobbyActivity;

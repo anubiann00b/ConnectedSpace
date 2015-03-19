@@ -15,10 +15,10 @@ import java.net.Socket;
 import me.shreyasr.connected.android.AndroidLauncher;
 import me.shreyasr.connected.network.NetworkHandler;
 
-public class ServerSocketThread implements Runnable {
+class ServerSocketThread implements Runnable {
 
-    Activity lobbyActivity;
-    ServerSocket serverSocket;
+    private final Activity lobbyActivity;
+    private ServerSocket serverSocket;
 
     public ServerSocketThread(Activity lobbyActivity) {
         this.lobbyActivity = lobbyActivity;
@@ -34,7 +34,6 @@ public class ServerSocketThread implements Runnable {
         while(true) {
             try {
                 final Socket socket = serverSocket.accept();
-                final boolean[] accept = {false};
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
@@ -43,7 +42,6 @@ public class ServerSocketThread implements Runnable {
                                 .setMessage("Incoming Game Request")
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        accept[0] = true;
                                         try {
                                             socket.getOutputStream().write(1);
                                         } catch (IOException e) {
@@ -62,9 +60,12 @@ public class ServerSocketThread implements Runnable {
                                 })
                                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        accept[0] = false;
                                         try {
                                             socket.getOutputStream().write(0);
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
                                             socket.close();
                                         } catch (IOException e) {
                                             e.printStackTrace();

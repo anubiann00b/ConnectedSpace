@@ -2,8 +2,8 @@ package me.shreyasr.connected.android.util;
 
 public class Client {
 
-    public String ip;
-    public String status;
+    public final String ip;
+    private final String status;
 
     public Client(String ip, String status) {
         this.ip = ip;

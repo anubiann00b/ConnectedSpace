@@ -20,7 +20,7 @@ import java.util.List;
 public class AndroidAddressUtils {
 
     public static InetAddress getIPAddress() {
-        List<NetworkInterface> interfaces = null;
+        List<NetworkInterface> interfaces;
         try {
             interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
         } catch (SocketException e) {

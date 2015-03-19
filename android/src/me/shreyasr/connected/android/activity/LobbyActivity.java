@@ -24,7 +24,7 @@ public class LobbyActivity extends ActionBarActivity {
         setContentView(R.layout.activity_lobby);
 
         ListView listView = (ListView) this.findViewById(R.id.client_list);
-        final ClientListAdapter adapter = new ClientListAdapter(this, listView);
+        final ClientListAdapter adapter = new ClientListAdapter(this);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

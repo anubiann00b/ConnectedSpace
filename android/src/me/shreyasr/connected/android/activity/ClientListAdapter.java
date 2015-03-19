@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.LinkedList;
@@ -17,15 +16,13 @@ import me.shreyasr.connected.android.util.Client;
 
 public class ClientListAdapter extends BaseAdapter {
 
-    List<Client> clients = new LinkedList<Client>();
-    Handler handler = new Handler();
+    private final List<Client> clients = new LinkedList<Client>();
+    private final Handler handler = new Handler();
 
-    Context context;
-    private ListView listView;
+    private final Context context;
 
-    public ClientListAdapter(Context context, ListView listView) {
+    public ClientListAdapter(Context context) {
         this.context = context;
-        this.listView = listView;
     }
 
     public void add(final Client client) {
@@ -58,7 +55,7 @@ public class ClientListAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.client_list_item, null);
+            view = inflater.inflate(R.layout.client_list_item, parent, false);
         }
 
         TextView clientIp = (TextView) view.findViewById(R.id.client_ip);

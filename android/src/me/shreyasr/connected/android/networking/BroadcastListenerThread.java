@@ -8,10 +8,10 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
 
-public class BroadcastListenerThread implements Runnable {
+class BroadcastListenerThread implements Runnable {
 
-    LobbyManager manager;
-    DatagramSocket recvSocket;
+    private final LobbyManager manager;
+    private DatagramSocket recvSocket;
 
     public BroadcastListenerThread(LobbyManager manager) {
         this.manager = manager;

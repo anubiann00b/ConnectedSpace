@@ -23,13 +23,12 @@ public class AndroidLauncher extends AndroidApplication {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
         InetAddress broadcast = null;
-        InetAddress address = AndroidAddressUtils.getIPAddress();
         try {
             broadcast = AndroidAddressUtils.getBroadcastAddress(this);
         } catch (UnknownHostException e) {
             Gdx.app.log("FAIL", "Failed to init address", e);
         }
-        Log.d("BROADCAST", broadcast.toString());
+        Log.d("BROADCAST", broadcast != null ? broadcast.toString() : "null");
         initialize(new ConnectedSpace(network, broadcast), config);
     }
 }

@@ -17,10 +17,10 @@ public class LobbyManager {
 
     public static final int TYPE_HEARTBEAT = 0;
 
-    ClientListAdapter adapter;
-    public InetAddress localAddress;
+    private final ClientListAdapter adapter;
+    public final InetAddress localAddress;
 
-    NetworkStatus currentStatus = NetworkStatus.LOBBY;
+    final NetworkStatus currentStatus = NetworkStatus.LOBBY;
     InetAddress broadcastAddress;
 
     public LobbyManager(Activity lobbyActivity, ClientListAdapter adapter) {
@@ -43,7 +43,7 @@ public class LobbyManager {
 }
 
 enum NetworkStatus {
-    LOBBY, PROPOSING, GAME;
+    LOBBY, PROPOSING, GAME
 }
 
 class PacketManager implements Runnable {
@@ -54,7 +54,7 @@ class PacketManager implements Runnable {
         return buffer.array();
     }
 
-    private ClientListAdapter adapter;
+    private final ClientListAdapter adapter;
     private final DatagramPacket packet;
 
     PacketManager(ClientListAdapter adapter, DatagramPacket packet) {
